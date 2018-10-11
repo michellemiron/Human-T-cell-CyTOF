@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Michelle Miron" />
+
+<meta name="date" content="2017-10-10" />
+
+<title>Heatmap</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Human-T-cell-CyTOF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/michellemiron">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Heatmap</h1>
+<h4 class="author"><em>Michelle Miron</em></h4>
+<h4 class="date"><em>10/10/2017</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2018-10-11</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<details>
+<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181011)</code> </summary></p>
+<p>The command <code>set.seed(20181011)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> d555079 </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    docs/.DS_Store
+    Ignored:    docs/figure/
+
+Untracked files:
+    Untracked:  analysis/MDS.Rmd
+
+Unstaged changes:
+    Modified:   analysis/Heatmap.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</details>
+</li>
+</ul>
+<details>
+<summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+d555079
+</td>
+<td style="text-align:left;">
+michellemiron
+</td>
+<td style="text-align:left;">
+2018-10-11
+</td>
+<td style="text-align:left;">
+heatmap analysis
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+</details>
+<hr />
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">echo =</span> <span class="ot">TRUE</span>, <span class="dt">warning =</span> <span class="ot">FALSE</span>, <span class="dt">message =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">                      <span class="dt">fig.height =</span> <span class="dv">10</span>, <span class="dt">fig.width =</span> <span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(gapminder)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(gplots)</a></code></pre></div>
+<p>In this study I am comparing lymphocyte populations, specifically T cells, that have been isolated form different human tissue and organ sites. In this study the lymphocyte populations I am comparing have been isolated from the following sites: Blood, Bone marrow (BM), Spleen ( Spl), Lung (Lng), and Lung-draining lymph nodes (LLN). Each tissue site was collected from a single individual, and data from multiple individuals will be analyzed here. ###Code book ####Fixed variables</p>
+<p>These are variables that do not change because you know them in advance of the experiment, before collecting any data.</p>
+<ol style="list-style-type: decimal">
+<li><p>Tissue,with four possible values (BM, Spl, LLN, and Lung)</p>
+<pre><code>                          Tissue       | Abbreviation 
+                         ------------- | ------------- 
+                         Bone Marrow   | BM       
+                         Spleen        | Spl
+                         Lung          | Lng
+                         Lymph node    | LN</code></pre></li>
+<li><p>Individual, with three possible values(332,333, 335)</p>
+<pre><code>                         Individual    | ID # 
+                         ------------- | -------
+                         1             | 332       
+                         2             | 333
+                         3             | 335</code></pre></li>
+<li><p>T cell subset, with two valuees (MEM, or Naive)</p>
+<pre><code>                         Subset          | Abbreviation
+                         --------------- | -------------
+                         Naive T cell    | Naive     
+                         Memory T cell   | TEM</code></pre>
+<p>###Raw data</p></li>
+</ol>
+<p>In this case the raw data, what gets collected from the machine, needs to be read using another software. I used a paid software called <a href="http://www.denovosoftware.com/">FCS Express</a>. Here I will describe exactly what I did to export the data from this software which I call raw data.</p>
+<p>Open the FCS Express software. On the top with all the menu options, click Export. This will open a window which you can need to choose and do the following: 1) name the file you are exporting 2) choose the parameters you want to export ( I exported all and edited the ones i wanted once it was loaded into R) 3) Choose the number of cells you want to export ( I exported 1 million, knowing that was an over-estimate to get all the cells) 4) Choose the “gate” you want to export. These are gates that you have defined in the program that identify the cell populations you are interested. Ie. for my cell types, protein expression of CCR7 and CD45RA identifies TEM and Naive T cells as CCR7-CD45RA- and CCR7+CD45RA+ respectively.</p>
+<p>###Steps to get the raw data</p>
+<ol style="list-style-type: decimal">
+<li><p>Step 1 - take the raw file, run version FCS express (version 6), and do the following steps within the FCS express program.</p></li>
+<li><p>Step 2 - Concatenate the files using the FCS express data exporting option and make sure to label the file that you are exporting according to the files being merged.</p></li>
+<li><p>Step 3 - Open the concatenated file and gate on populations of interest.</p></li>
+<li><p>Step 4 - Export the data on any one given subset using the data export function from FCSexpress, containing expresion level on each individual cell. One file was exported for each cell subset.</p></li>
+</ol>
+<div id="load-data" class="section level3">
+<h3>Load data</h3>
+<p>This is what the Raw data looks like:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">          Raw_BM_TEM &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/BM_TEM_D332_333_335_exp2.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">          <span class="kw">colnames</span>(Raw_BM_TEM)</a></code></pre></div>
+<pre><code> [1] &quot;Time&quot;               &quot;Event_length&quot;       &quot;Y89Di&quot;             
+ [4] &quot;Pd102Di&quot;            &quot;Viability&quot;          &quot;Pd104Di&quot;           
+ [7] &quot;Pd105Di&quot;            &quot;Pd106Di&quot;            &quot;Pd108Di&quot;           
+[10] &quot;Pd110Di&quot;            &quot;CD57&quot;               &quot;In115Di&quot;           
+[13] &quot;I127Di&quot;             &quot;Xe131Di&quot;            &quot;Cs133Di&quot;           
+[16] &quot;Ba138Di&quot;            &quot;Ce140Di&quot;            &quot;CD28&quot;              
+[19] &quot;CD19&quot;               &quot;Ce142Di&quot;            &quot;CD45RA&quot;            
+[22] &quot;CD103&quot;              &quot;CD4&quot;                &quot;CD8&quot;               
+[25] &quot;Perforin&quot;           &quot;CD16&quot;               &quot;CD127&quot;             
+[28] &quot;CD1c&quot;               &quot;CD123&quot;              &quot;CD66b&quot;             
+[31] &quot;PD_1&quot;               &quot;ICOS&quot;               &quot;CD27&quot;              
+[34] &quot;CCR5&quot;               &quot;Bcl6&quot;               &quot;Tcf1&quot;              
+[37] &quot;CD14&quot;               &quot;CD56&quot;               &quot;Dy162Di&quot;           
+[40] &quot;CXCR5&quot;              &quot;CD69&quot;               &quot;X41BB&quot;             
+[43] &quot;CD25&quot;               &quot;CCR7&quot;               &quot;CD3&quot;               
+[46] &quot;Tbet&quot;               &quot;CD38&quot;               &quot;CD95&quot;              
+[49] &quot;LAG3&quot;               &quot;CXCR4&quot;              &quot;HLADR&quot;             
+[52] &quot;TIGIT&quot;              &quot;Lu176Di&quot;            &quot;GranzymeB&quot;         
+[55] &quot;Ta181Di&quot;            &quot;Os189Di&quot;            &quot;DNA&quot;               
+[58] &quot;Osmium&quot;             &quot;DNA.1&quot;              &quot;CD45_194&quot;          
+[61] &quot;CD45_195&quot;           &quot;CD45_196&quot;           &quot;CD45_198&quot;          
+[64] &quot;Bi209Di&quot;            &quot;bc_separation_dist&quot; &quot;mahalanobis_dist&quot;  
+[67] &quot;File.Identifier&quot;   </code></pre>
+<p>The problem is there is a separate file for each Tissue site (a variable) :</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">  Raw_BM_TEM &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/BM_TEM_D332_333_335_exp2.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  Raw_Spl_TEM &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/SPL_TEM_D332_333_335_exp2.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  Raw_LN_TEM &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/LLN_TEM_D332_333_335_exp2.csv&quot;</span>) </a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  Raw_Lng_TEM &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/Lung_TEM_D332_333_335_exp2.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">  Raw_LN_Naive &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/LLN_Naive_D332_333_335_exp2.csv&quot;</span>)</a></code></pre></div>
+<p>In order to fix this, the next step is to merge the data from each file, which cnotained data on all the cells within on subset (Naive or Memory T cells from a particular tissue), into a database/file with all the data from each cell subset from different tissues together. I call the merged data “tidy” data below.</p>
+</div>
+<div id="tidy-data-and-messy-data" class="section level3">
+<h3>Tidy data and Messy data</h3>
+<p>Tidy <a href="http://vita.had.co.nz/papers/tidy-data.html">data</a> is a uniform way to make data more organized and easier to do statsitics and analysis on. Here I will put the data into the tidy format. This consists of three steps:</p>
+<p>1.Only Keep relevant columns in data set:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># A function to keep a subset of columns in the dataframe</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co"># and to fix an aritifact in the File.Identifier column</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">tidyDataColumns &lt;-<span class="st"> </span><span class="cf">function</span>(RawData) {</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">          </a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">          <span class="co"># Name columns to keep</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">          keeps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Time&quot;</span>,<span class="st">&quot;CD57&quot;</span>,<span class="st">&quot;CD28&quot;</span>,<span class="st">&quot;CD45RA&quot;</span>,<span class="st">&quot;CD103&quot;</span>,<span class="st">&quot;Perforin&quot;</span>,</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">                                         <span class="st">&quot;CD127&quot;</span>,<span class="st">&quot;PD_1&quot;</span>,<span class="st">&quot;ICOS&quot;</span>,<span class="st">&quot;CD27&quot;</span>,<span class="st">&quot;CCR5&quot;</span>,<span class="st">&quot;Bcl6&quot;</span>,</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">                                         <span class="st">&quot;Tcf1&quot;</span>,<span class="st">&quot;CD14&quot;</span>,<span class="st">&quot;CD56&quot;</span>,<span class="st">&quot;CXCR5&quot;</span>,<span class="st">&quot;CD69&quot;</span>,<span class="st">&quot;X41BB&quot;</span>,<span class="st">&quot;CD25&quot;</span>,</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">                                         <span class="st">&quot;CCR7&quot;</span>,<span class="st">&quot;CD3&quot;</span>,<span class="st">&quot;Tbet&quot;</span>,<span class="st">&quot;CD38&quot;</span>,<span class="st">&quot;CD95&quot;</span>,<span class="st">&quot;LAG3&quot;</span>,</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">                                         <span class="st">&quot;CXCR4&quot;</span>,<span class="st">&quot;HLADR&quot;</span>, <span class="st">&quot;TIGIT&quot;</span>,<span class="st">&quot;GranzymeB&quot;</span>,</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">                                         <span class="st">&quot;File.Identifier&quot;</span>)</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">        </a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">          <span class="co"># The subset of the raw data that contains columns defined above</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">          KeyMarkersdf &lt;-<span class="st"> </span>RawData[keeps]</a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">                    </a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">          <span class="co"># There is an artifact of the data</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">          <span class="co"># The &quot;File.Identifier&quot; column was generated from the FCSexpress program</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">          <span class="co"># This column is a number 1-12 that is a unique identifier </span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19">          <span class="co"># The unique identifier tells you what sample the cells are from</span></a>
+<a class="sourceLine" id="cb8-20" data-line-number="20">          <span class="co"># For example, 1 = Bome marrrow from D332, 2= BM from D333</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21">          <span class="co"># The key to this identifier is in step 2 of tidy data below</span></a>
+<a class="sourceLine" id="cb8-22" data-line-number="22">          <span class="co"># The artifact is that the he program outputs the File.Identifier number </span></a>
+<a class="sourceLine" id="cb8-23" data-line-number="23">          <span class="co"># as a real number ie. (1.04243) instead of an integer ie. (1)</span></a>
+<a class="sourceLine" id="cb8-24" data-line-number="24">          <span class="co"># Therefore I rounded the File.Identifier column here:</span></a>
+<a class="sourceLine" id="cb8-25" data-line-number="25">          File.ID.Rounded &lt;-<span class="st"> </span><span class="kw">round</span>(KeyMarkersdf<span class="op">$</span>File.Identifier, <span class="dt">digits=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb8-26" data-line-number="26">          <span class="co"># Take away the non-rounded file identifier</span></a>
+<a class="sourceLine" id="cb8-27" data-line-number="27">          NoFileIDdf &lt;-<span class="st"> </span><span class="kw">subset</span>(KeyMarkersdf, <span class="dt">select =</span> <span class="op">-</span><span class="kw">c</span>(File.Identifier) )</a>
+<a class="sourceLine" id="cb8-28" data-line-number="28">          <span class="co"># Add_Rounded_FileID to the dataframe</span></a>
+<a class="sourceLine" id="cb8-29" data-line-number="29">          NoFileIDdf<span class="op">$</span>File.ID &lt;-<span class="st"> </span>File.ID.Rounded</a>
+<a class="sourceLine" id="cb8-30" data-line-number="30">          <span class="co"># Rename the dataset</span></a>
+<a class="sourceLine" id="cb8-31" data-line-number="31">          Tidydf &lt;-<span class="st"> </span>NoFileIDdf</a>
+<a class="sourceLine" id="cb8-32" data-line-number="32">}</a>
+<a class="sourceLine" id="cb8-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co"># Apply this function to all data sets</span></a>
+<a class="sourceLine" id="cb8-35" data-line-number="35">          Tidy_BM_TEM &lt;-<span class="st"> </span><span class="kw">tidyDataColumns</span>(Raw_BM_TEM)</a>
+<a class="sourceLine" id="cb8-36" data-line-number="36">          Tidy_LN_TEM &lt;-<span class="st"> </span><span class="kw">tidyDataColumns</span>(Raw_LN_TEM)</a>
+<a class="sourceLine" id="cb8-37" data-line-number="37">          Tidy_Spl_TEM &lt;-<span class="st"> </span><span class="kw">tidyDataColumns</span>(Raw_Spl_TEM)</a>
+<a class="sourceLine" id="cb8-38" data-line-number="38">          Tidy_Lung_TEM &lt;-<span class="st"> </span><span class="kw">tidyDataColumns</span>(Raw_Lng_TEM)</a>
+<a class="sourceLine" id="cb8-39" data-line-number="39">          Tidy_LN_Naive &lt;-<span class="st"> </span><span class="kw">tidyDataColumns</span>(Raw_LN_Naive)</a></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Combined the data sets together into one table:</li>
+</ol>
+<p>Remember that for this data set, the tissue varibale can still be disintuigshed by the file ID column. However the subset Variable cannot, So i will add this variable to each data set:</p>
+<p>Add a column that says subset name as a new variable:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">Tidy_BM_TEM[<span class="st">&quot;Subset&quot;</span>] &lt;-<span class="st"> &quot;TEM&quot;</span> </a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">Tidy_LN_Naive[<span class="st">&quot;Subset&quot;</span>] &lt;-<span class="st"> &quot;Naive&quot;</span> </a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">Tidy_LN_TEM[<span class="st">&quot;Subset&quot;</span>] &lt;-<span class="st"> &quot;TEM&quot;</span> </a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">Tidy_Lung_TEM[<span class="st">&quot;Subset&quot;</span>] &lt;-<span class="st"> &quot;TEM&quot;</span> </a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">Tidy_Spl_TEM[<span class="st">&quot;Subset&quot;</span>] &lt;-<span class="st"> &quot;TEM&quot;</span> </a></code></pre></div>
+<p>And now combine each data set by adding new rows:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">TidyMasterData &lt;-<span class="st"> </span><span class="kw">do.call</span>( <span class="st">&quot;rbind&quot;</span>, <span class="kw">list</span>(Tidy_BM_TEM, </a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">                                         Tidy_LN_Naive,Tidy_LN_TEM, </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">                                         Tidy_Spl_TEM, Tidy_Lung_TEM))</a></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Add variables that are imbedded in “File.Identifier” column</li>
+</ol>
+<p>The “File.Identifier” column has a key which reveals what variables they represent:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">#add tissue and donor column</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">TidyMasterData[<span class="st">&quot;Tissue&quot;</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">TidyMasterData[<span class="st">&quot;Donor&quot;</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">                              </a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#Here is the key for what the File.ID column is</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">File.Identifier_Key &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/File Identifier key.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">File.Identifier_Key</a></code></pre></div>
+<pre><code>   File.Identifier Tissue Donor
+1                1    BM    332
+2                2    BM    333
+3                3    BM    335
+4                4    LN    332
+5                5    LN    333
+6                6    LN    335
+7                7   Spl    332
+8                8   Spl    333
+9                9   Spl    335
+10              10   Lung   332
+11              11  Lung    333
+12              12  Lung    335</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">#Use the File.Identifier Key to label the table for the correct variables</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#associated with the observations</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(File.Identifier_Key[,<span class="dv">1</span>])) {</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">          TidyMasterData<span class="op">$</span>Tissue[TidyMasterData<span class="op">$</span>File.ID<span class="op">==</span>i] &lt;-<span class="st"> </span><span class="kw">as.character</span>(</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">                    File.Identifier_Key<span class="op">$</span>Tissue[i])</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">          TidyMasterData<span class="op">$</span>Donor[TidyMasterData<span class="op">$</span>File.ID<span class="op">==</span>i] &lt;-<span class="st"> </span>File.Identifier_Key<span class="op">$</span>Donor[i]      </a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="kw">sample_n</span>(TidyMasterData, <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>           Time        CD57       CD28    CD45RA     CD103  Perforin
+12482 3052889.0   0.0000000 10.4616747 65.532646 4.2791147 0.0000000
+22583 2477453.8  27.5143013  1.7449024 30.124714 2.8983617 2.1181090
+9964  2062071.4   0.0000000  9.6124620 51.383289 1.4989811 0.0000000
+8231  1309426.8   0.0000000  8.7191391 41.999260 0.0000000 0.1017744
+21626   20017.3   0.0000000  0.7420194 10.083414 0.7017327 0.0000000
+30728  214783.2 389.6552120  1.0181687 23.803776 1.4961168 9.0503149
+13288 3384093.2   0.0000000  2.9584415 32.632576 5.8124824 0.0000000
+25444 1264457.6   0.3135303  0.0000000  6.929728 0.0000000 1.7541263
+26176 3800311.8 133.1827390  0.0000000 23.538940 0.0000000 4.4657054
+25989 2162710.2   0.0000000  0.0000000 31.800388 0.0000000 0.0000000
+          CD127       PD_1       ICOS      CD27       CCR5      Bcl6
+12482 71.526779  0.0000000  3.9467885 46.652424 11.0198584 120.85487
+22583  0.000000 11.2247086  0.0000000  1.461333 40.4986839  35.82096
+9964  56.798302  1.0366619  4.9925332 67.634201  0.0000000  94.91830
+8231  20.272024  0.0000000  0.2485409 49.772007  0.0000000  97.81692
+21626 28.041721  0.0000000  2.9602876 36.702774  0.0000000  44.16980
+30728  0.000000  0.4969150 11.1574450  2.493632 33.3880043  52.86784
+13288 29.565361  0.4751325  3.7910097 42.857987  2.9581644  79.65339
+25444 23.420727  0.0000000  8.1495915 31.798397  0.0000000  56.89161
+26176  9.755482  1.7383016  5.7117133  0.000000 11.0411301  29.13682
+25989  0.000000  2.6570585  3.6292398  8.048411  0.6815187  38.47914
+            Tcf1     CD14      CD56     CXCR5      CD69     X41BB
+12482 23.3373318 2.763588 1.9218677 0.2456421 61.382969 2.5256660
+22583  6.6600347 6.843864 1.0752317 0.0000000 46.022652 0.0000000
+9964  22.4082279 0.000000 4.1782241 0.0000000 21.253954 0.8096662
+8231  14.8541679 1.086994 0.1143518 0.0000000  6.732335 0.4889751
+21626  0.0000000 3.854252 3.8566990 0.8616908 74.698143 0.0000000
+30728  0.5892567 7.962752 0.0000000 0.0000000  0.000000 0.0000000
+13288 22.3914757 4.812201 1.9097412 1.5275912 15.093721 0.0000000
+25444  3.4665031 0.000000 0.0000000 0.6550379 77.597321 4.3491702
+26176 14.2388973 0.000000 0.0000000 0.0000000  4.963767 0.9992685
+25989  1.5676321 0.000000 4.1207428 2.3613768  7.372880 0.0000000
+           CD25      CCR7       CD3      Tbet      CD38      CD95     LAG3
+12482 8.0901480 40.257751 154.15951  0.000000  0.849502  1.274513 0.000000
+22583 0.0000000  0.000000  53.00237  2.031536  0.000000 11.676749 3.168458
+9964  2.2880900 27.045574 129.51741  0.000000  2.612077  0.000000 2.030489
+8231  0.6758201 20.734657  61.39169  0.000000 15.220687  0.000000 0.000000
+21626 2.7292330  4.223935  76.97710  0.000000  0.000000 34.390804 2.882162
+30728 0.0000000  0.000000 177.50055 27.441727 24.993000 14.733407 1.074729
+13288 0.0000000 30.341860  86.11874  0.000000  5.806004  1.181141 0.000000
+25444 1.5706594  4.274484  58.87841 15.439473  1.077121  8.922639 1.244547
+26176 0.0000000  0.000000  68.17571  0.603026  4.640015 20.016600 0.000000
+25989 0.3310154  0.000000 201.28552  6.956091 11.564195 23.709627 2.352111
+            CXCR4     HLADR      TIGIT  GranzymeB File.ID Subset Tissue
+12482 103.3182750 8.8904839  0.0000000  3.9545774       4  Naive    LN 
+22583   0.0000000 3.2654841  1.0716771  0.0000000       4    TEM    LN 
+9964   99.6391907 8.7387104  0.9357023  0.0000000       4  Naive    LN 
+8231   28.7305393 0.0000000  0.3774966  5.6018610       4  Naive    LN 
+21626  10.5007610 0.8004771  3.5635478  1.6865807       4    TEM    LN 
+30728   0.6421028 3.4453962 10.2577267 38.3436928      12    TEM  Lung 
+13288  53.9502449 0.0000000  1.5432042  0.4768642       4  Naive    LN 
+25444   8.9444885 6.4891329 23.6278095  0.0000000       6    TEM    LN 
+26176  36.9129753 0.0000000  0.0000000  0.0000000       7    TEM   Spl 
+25989  30.2758751 6.5556626 11.5635653  0.0000000       7    TEM   Spl 
+      Donor
+12482   332
+22583   332
+9964    332
+8231    332
+21626   332
+30728   335
+13288   332
+25444   335
+26176   332
+25989   332</code></pre>
+<p>Now to fix order of the columns so that the fixed variables ( File.ID, Subset, Tissue, and Donor) are first, and the oberserved variables (Protein names like CD57, T-bet , etc. are next). Here we will also remove the Time and File.ID column since those are no longer needed.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">#Remove columns that are not needed by their number in the dataframe</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">TidyData &lt;-<span class="st"> </span>TidyMasterData[,<span class="kw">c</span>(<span class="dv">33</span>,<span class="dv">32</span>,<span class="dv">31</span>,<span class="dv">2</span><span class="op">:</span><span class="dv">29</span>)]</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">sample_n</span>(TidyData, <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>      Donor Tissue Subset        CD57       CD28   CD45RA    CD103
+12326   332    LN   Naive   3.5479681 16.1403656 42.65883  0.00000
+26500   335   Spl     TEM 162.8388670  0.0000000 16.51673  0.00000
+10595   332    LN   Naive   1.8064305  1.6539863 31.88200  0.00000
+32594   335  Lung     TEM 399.6445620  0.0000000 31.87990  1.52408
+14281   333    LN   Naive   0.0000000  1.3434770 73.98100  0.00000
+32468   335  Lung     TEM 432.0054930  4.4038434 25.74431  0.00000
+19158   335    LN   Naive   3.4416356  4.4924235 36.43336  0.00000
+26921   335   Spl     TEM   3.8298383  4.6303797 10.20481 23.98906
+21008   335    LN   Naive   0.3238374  0.9497529 34.51559  0.00000
+14835   333    LN   Naive   0.0000000  3.8715191 39.54944  0.00000
+       Perforin     CD127     PD_1        ICOS       CD27      CCR5
+12326 0.0000000 20.367424 0.000000  6.44999599 42.8757095  0.000000
+26500 8.8513870  0.000000 7.929127  4.95029831  1.1932241 13.589672
+10595 0.8889149 52.509113 0.000000  9.76167965 62.3691216  2.172892
+32594 1.5139753  1.568818 0.000000  0.00000000  0.6887403 10.675126
+14281 0.0000000 11.909213 0.000000  7.95904112 78.9794922  2.197940
+32468 2.0074165  1.306051 0.000000 10.19522760  0.0000000 35.263592
+19158 0.0000000 33.989788 0.000000  0.05259372 75.5338821  1.003628
+26921 3.2857223 12.586861 0.000000  0.55556047  2.6051440  0.000000
+21008 0.0000000 49.984177 0.000000 12.55974290 74.8470917  3.367430
+14835 7.6218162 18.856031 2.206394  8.99352932 57.6641006  1.645800
+           Bcl6      Tcf1      CD14     CD56     CXCR5      CD69    X41BB
+12326 112.92525 16.776300 0.0000000 9.253509 1.2781196 44.616394 0.000000
+26500  66.93407  0.000000 2.8744013 3.461496 0.0000000  0.000000 1.539745
+10595  69.59129  7.389476 0.0000000 0.000000 0.0000000 19.798977 0.000000
+32594  15.60241  1.284688 0.0000000 0.000000 0.0000000  0.000000 0.000000
+14281 104.76541 10.693748 0.2905540 1.669858 0.0000000  3.097456 0.792520
+32468 122.58945  0.000000 0.4105328 0.000000 0.0000000  4.445329 0.000000
+19158  26.34832  4.708960 0.0000000 0.000000 5.1722469 48.255077 3.935203
+26921 103.07275 11.561901 0.0000000 2.320044 0.4918753  6.011547 0.000000
+21008  76.09916 10.536107 0.0000000 0.000000 1.2728819 70.435715 0.000000
+14835  36.05440  2.624294 0.0000000 0.000000 2.1878469 36.972111 0.000000
+           CD25      CCR7       CD3        Tbet      CD38       CD95
+12326 0.0000000 22.894869 110.73998  0.00000000  3.202744  0.6102469
+26500 0.0000000  8.438256  88.03909 72.44131470 18.692051 13.7280159
+10595 0.7547693 45.147785 144.94870  0.01193897  3.669466  0.0000000
+32594 0.7567927  0.000000 155.78635 15.07305340 20.915935  0.0000000
+14281 1.5078700 29.948021 122.97146  0.63559800  5.795063  1.7438689
+32468 0.0000000  4.622541 113.35664 81.76174160  8.278605 23.0002651
+19158 0.0000000 38.893280 136.18983  0.00000000 25.452318  0.0000000
+26921 0.0000000  0.000000  64.75572  3.76865649  2.821257 36.8669853
+21008 2.0442677 26.662825 213.80479  0.00439385  5.203176  0.0000000
+14835 1.6895120 29.713591  80.71461  1.18051696  1.544926  1.6310199
+           LAG3     CXCR4      HLADR      TIGIT   GranzymeB
+12326 0.7669154 47.935215 7.97988749  1.0936548   0.5854853
+26500 0.3372521  8.688261 5.79692793  7.8061881 122.0800250
+10595 0.0000000 92.558578 8.11340141  0.0000000   0.1452501
+32594 0.0000000  2.194113 0.00000000 15.4270821   8.7272892
+14281 1.8477941 53.221272 0.00000000  0.0000000   0.0000000
+32468 4.3515425  2.585573 2.97388363  4.7753491  37.1372490
+19158 0.0000000 65.013924 0.05500008  0.1063416   0.0000000
+26921 6.7370343 63.792793 6.98547792  0.3998263   1.3379796
+21008 5.6707115 48.159386 9.59017086  0.0000000   6.4415469
+14835 0.0000000 37.763042 0.00000000  0.0000000   0.0000000</code></pre>
+<p>Time to make the last changes to make tidy data. Let’s add a column to be a unique identifier for each cell number</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">TidyData[<span class="st">&quot;Cell&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(TidyData)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">TidyDatabyCell&lt;-<span class="st"> </span>TidyData[,<span class="kw">c</span>(<span class="dv">32</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">31</span>)]</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">messy &lt;-<span class="st"> </span>TidyDatabyCell</a></code></pre></div>
+<p>This will turn all the marker variables into rows instead of columns</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">tidy &lt;-<span class="st"> </span>messy <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">gather</span>(Marker, Expression, CD57<span class="op">:</span>GranzymeB)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">sample_n</span>(tidy,<span class="dv">10</span>)</a></code></pre></div>
+<pre><code>        Cell Donor Tissue Subset   Marker Expression
+412464 21144   335    LN   Naive     CD14  0.0000000
+679812 27612   335   Spl     TEM     Tbet  5.2710877
+162312 31872   335  Lung     TEM Perforin  0.0000000
+742175 24755   335    LN     TEM     CD95  7.6273899
+847812 32562   335  Lung     TEM    HLADR  0.2298846
+827195 11945   332    LN   Naive    HLADR  0.0000000
+655841  3641   335    BM     TEM     Tbet  6.0274572
+352990 26890   335   Spl     TEM     Bcl6 24.9591103
+196418   758   332    BM     TEM     PD_1  0.0000000
+381642 22932   332    LN     TEM     Tcf1 19.3363304</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">sample_n</span>(messy,<span class="dv">10</span>)</a></code></pre></div>
+<pre><code>       Cell Donor Tissue Subset       CD57       CD28    CD45RA      CD103
+11186 11186   332    LN   Naive   0.000000  3.9543002 33.396954 1.62798262
+22498 22498   332    LN     TEM   2.666175 13.4650764  9.619907 5.22601223
+21366 21366   335    LN   Naive   0.000000  9.0468292 50.042999 0.26212281
+5586   5586   332    LN   Naive   0.000000 12.8031540 33.366684 1.51445818
+27992 27992   335   Spl     TEM 346.973328  0.0000000 12.069767 1.89686465
+6739   6739   332    LN   Naive   0.000000  1.4548757 34.738941 1.52648580
+15377 15377   333    LN   Naive   0.000000  2.9653280 48.508888 0.41549999
+20645 20645   335    LN   Naive   0.000000  0.1215935 18.903549 0.33138862
+20940 20940   335    LN   Naive   0.000000  0.0000000 38.742775 0.00000000
+6121   6121   332    LN   Naive   0.000000 14.3798237 60.549965 0.07225197
+        Perforin     CD127      PD_1      ICOS       CD27       CCR5
+11186 0.00000000 21.868751 0.0000000  3.896947  35.534409  2.3063550
+22498 0.00000000 48.269112 0.0000000  7.261716   1.622978  0.4794932
+21366 0.83414227 48.484493 1.0520635  7.702374 116.637329  0.7212923
+5586  0.00000000 36.066849 0.0000000  1.676438  66.092102  0.9791052
+27992 2.31230903  2.059284 0.0000000  3.004137   3.128674  0.6223021
+6739  0.03081994 40.084812 0.3261564  2.181373  74.648621  0.2780217
+15377 0.68811399 33.188930 0.0000000  3.729378  58.530567  2.1980071
+20645 3.41959739 28.931566 0.0000000 20.973642  39.225414  1.5451697
+20940 0.00000000 66.901367 0.0000000  0.000000  87.849182  2.0648947
+6121  0.00000000 10.401176 0.0000000  6.809335  70.318382 11.5594912
+            Bcl6       Tcf1       CD14      CD56     CXCR5      CD69
+11186  84.395943 19.2539101 10.7720966 0.0000000 0.0000000 31.472954
+22498  26.527594  1.3588976  5.9068999 0.0000000 0.0000000  9.786564
+21366  33.770554 11.1550579  0.6334616 0.0000000 3.1669857 56.790966
+5586   67.817955 12.2039557  0.0000000 0.2408703 5.1173630 20.888622
+27992 110.395775  0.0000000  0.5863480 0.0000000 0.6295513  8.603872
+6739  118.619720  7.8584333  7.6169691 0.0000000 0.0000000  0.000000
+15377 127.348083 15.2681103  1.8813030 0.0385220 0.0000000 76.900742
+20645   8.625305  0.4567184  0.0000000 0.6284733 0.0000000 13.747850
+20940  42.031639  8.2151594  0.0000000 0.0000000 0.0000000 34.386799
+6121  124.014343 24.8831902  1.2968932 0.0000000 0.0000000 15.873423
+          X41BB     CD25       CCR7       CD3       Tbet      CD38
+11186 0.3202614 1.095054 51.1333008  58.27535  0.0000000 15.700752
+22498 0.0000000 4.170218  3.4168644 115.79676  0.0000000 16.079151
+21366 1.2095101 1.800200 41.5516853  92.21920  1.0094702  0.593292
+5586  0.4600236 0.000000 24.1463680  65.84097  0.0000000  9.607365
+27992 0.0000000 0.000000  0.9219649  83.36319 64.5584946  7.733719
+6739  0.0000000 0.000000 29.3261719 148.60051  0.6828969 22.895491
+15377 0.0000000 3.128037 29.1528416  92.32624  2.3798010  1.043227
+20645 0.4795936 3.076918 35.1303329 165.02714  0.5924067 21.817274
+20940 0.0000000 0.000000 55.2929955 135.98094  4.7132320 13.953125
+6121  0.0000000 2.041931 21.4184494 154.51317  0.0000000 26.498049
+            CD95       LAG3     CXCR4      HLADR    TIGIT   GranzymeB
+11186  9.1535826 0.00000000  73.29827 18.3139133 0.000000   0.1662000
+22498 77.6332016 2.34585786  18.01055  8.5378866 0.000000   0.0000000
+21366  0.0000000 0.77847826 102.41903  0.2728658 0.000000   0.0000000
+5586   2.2386215 0.87331909  26.24110  0.3903059 1.166781   0.6700124
+27992  8.4616385 0.00000000  13.37570  0.0000000 6.682945 133.9985200
+6739   0.0000000 0.06814285  25.94595  6.2613845 0.000000   8.9976063
+15377  0.0000000 0.00000000  49.69431  0.9809710 0.000000   0.6598240
+20645  0.1572662 1.00174832  43.41120  1.2679009 0.000000   0.0000000
+20940  0.0000000 0.00000000  71.31525  0.0000000 0.000000   2.0284975
+6121   1.5017062 0.00000000  10.80466  0.0000000 0.000000   3.2179015</code></pre>
+<p>Now we can plot this easily using ggplot. This is if you want to plot values of individual cells:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> tidy, <span class="kw">aes</span>(<span class="dt">x =</span> Cell, <span class="dt">y =</span> Marker)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Expression)) </a></code></pre></div>
+<p><img src="figure/Heatmap.Rmd/unnamed-chunk-10-1.png" width="1344" style="display: block; margin: auto;" /></p>
+</div>
+<div id="mean-of-the-data" class="section level3">
+<h3>Mean of the data</h3>
+<p>#used this tutorial: <a href="http://stat545.com/block023_dplyr-do.html" class="uri">http://stat545.com/block023_dplyr-do.html</a></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co">#this function allows multiple pipes to use with dplyr</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">meanDB &lt;-<span class="st"> </span>tidy <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="st">           </span><span class="kw">group_by</span>(Donor,Tissue, Subset, Marker) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="st">                    </span><span class="kw">summarize</span>(<span class="dt">meanExpression =</span> <span class="kw">mean</span>(Expression))</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">                    </a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co">#and Z score of this data</span></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">ZscoreDB &lt;-<span class="st"> </span>meanDB <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="st">  </span><span class="kw">group_by</span>(Donor,Marker) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z_score =</span> <span class="kw">scale</span>(meanExpression))  </a>
+<a class="sourceLine" id="cb23-11" data-line-number="11"> </a>
+<a class="sourceLine" id="cb23-12" data-line-number="12">ZscoreDB &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(ZscoreDB)</a>
+<a class="sourceLine" id="cb23-13" data-line-number="13">  meanZscoredf &lt;-<span class="st"> </span>ZscoreDB</a></code></pre></div>
+<p>#create unique name for each sample type</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">MeanZscore_SampleIDdf &lt;-<span class="st"> </span>meanZscoredf</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">MeanZscore_SampleIDdf<span class="op">$</span>Sample &lt;-<span class="st"> </span><span class="kw">paste</span>(MeanZscore_SampleIDdf<span class="op">$</span>Donor,MeanZscore_SampleIDdf<span class="op">$</span>Tissue,MeanZscore_SampleIDdf<span class="op">$</span>Subset)</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">sample_n</span>(MeanZscore_SampleIDdf,<span class="dv">10</span>)</a></code></pre></div>
+<pre><code>    Donor Tissue Subset Marker meanExpression     z_score        Sample
+2     332    BM     TEM   CCR5     43.7626522  1.37110919   332 BM  TEM
+413   335   Spl     TEM   ICOS      6.1190443 -0.08596611  335 Spl  TEM
+88    332   Lung    TEM  CD103      2.2166944 -0.51794754  332 Lung TEM
+173   333    LN   Naive  CD127     32.1652558  1.28961452 333 LN  Naive
+39    332    LN   Naive   CD38      7.9659917 -0.54967855 332 LN  Naive
+51    332    LN   Naive   PD_1      0.2779032 -1.43422526 332 LN  Naive
+142   333    BM     TEM   CCR5     17.3256352  0.14452009   333 BM  TEM
+214   333    LN     TEM  CXCR5      1.3780427  1.11179460   333 LN  TEM
+133   332   Spl     TEM   ICOS      2.5446767 -1.74993704  332 Spl  TEM
+341   335    LN     TEM  CD127     23.7381331  0.27712018   335 LN  TEM</code></pre>
+</div>
+<div id="plot-z-score-mean-data" class="section level3">
+<h3>plot Z score mean data</h3>
+<p>Lets first get the data “untidy” so it’s easier to use heatmap.2</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">Zscoredf &lt;-<span class="st"> </span>MeanZscore_SampleIDdf[,<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>)] </a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">ZscoreforHeatmap &lt;-<span class="st"> </span><span class="kw">spread</span>(Zscoredf, Marker, z_score)</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">ZscoreforHeatmap_justValues &lt;-<span class="st"> </span>ZscoreforHeatmap[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>)]</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#name rows of the df for heatmap plotting so labels showup</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="kw">rownames</span>(ZscoreforHeatmap_justValues) &lt;-<span class="st"> </span>ZscoreforHeatmap[,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co">#graph heatmap</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="co">#going to try following this [heatmap #tutorial](http://varianceexplained.org/r/love-actually-network/)</span></a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co">#color cheat sheet https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf</span></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb26-11" data-line-number="11">my_palette &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue3&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;sienna3&quot;</span>))(<span class="dt">n =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb26-12" data-line-number="12"><span class="kw">heatmap.2</span>(<span class="kw">as.matrix</span>(<span class="kw">t</span>(ZscoreforHeatmap_justValues)),<span class="dt">trace=</span><span class="st">&quot;none&quot;</span>,<span class="dt">col=</span>my_palette,<span class="dt">cexRow=</span><span class="fl">0.75</span>, <span class="dt">cexCol=</span><span class="fl">0.5</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">0.02</span>)))</a></code></pre></div>
+<p><img src="figure/Heatmap.Rmd/unnamed-chunk-13-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co">#lets remove some rows to only keep markers we want to plot!</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">colnames</span>(ZscoreforHeatmap_justValues)</a></code></pre></div>
+<pre><code> [1] &quot;Bcl6&quot;      &quot;CCR5&quot;      &quot;CCR7&quot;      &quot;CD103&quot;     &quot;CD127&quot;    
+ [6] &quot;CD14&quot;      &quot;CD25&quot;      &quot;CD27&quot;      &quot;CD28&quot;      &quot;CD3&quot;      
+[11] &quot;CD38&quot;      &quot;CD45RA&quot;    &quot;CD56&quot;      &quot;CD57&quot;      &quot;CD69&quot;     
+[16] &quot;CD95&quot;      &quot;CXCR4&quot;     &quot;CXCR5&quot;     &quot;GranzymeB&quot; &quot;HLADR&quot;    
+[21] &quot;ICOS&quot;      &quot;LAG3&quot;      &quot;PD_1&quot;      &quot;Perforin&quot;  &quot;Tbet&quot;     
+[26] &quot;Tcf1&quot;      &quot;TIGIT&quot;     &quot;X41BB&quot;    </code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">SelectZscores &lt;-ZscoreforHeatmap_justValues[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="dv">28</span>)]</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">my_palette &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;steelblue3&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;sienna3&quot;</span>))(<span class="dt">n =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw">heatmap.2</span>(<span class="kw">as.matrix</span>(<span class="kw">t</span>(SelectZscores)),<span class="dt">trace=</span><span class="st">&quot;none&quot;</span>,<span class="dt">col=</span>my_palette,<span class="dt">cexRow=</span><span class="fl">0.75</span>, <span class="dt">cexCol=</span><span class="fl">0.5</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">0.02</span>)))</a></code></pre></div>
+<p><img src="figure/Heatmap.Rmd/unnamed-chunk-13-2.png" width="1344" style="display: block; margin: auto;" /></p>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<pre><code>R version 3.4.4 (2018-03-15)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] bindrcpp_0.2.2  gplots_3.0.1    magrittr_1.5    gapminder_0.3.0
+[5] ggplot2_3.0.0   tidyr_0.8.0     dplyr_0.7.4    
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.16       compiler_3.4.4     pillar_1.2.2      
+ [4] git2r_0.21.0       plyr_1.8.4         workflowr_1.1.1   
+ [7] bindr_0.1.1        bitops_1.0-6       R.methodsS3_1.7.1 
+[10] R.utils_2.6.0      tools_3.4.4        digest_0.6.15     
+[13] evaluate_0.10.1    tibble_1.4.2       gtable_0.2.0      
+[16] pkgconfig_2.0.1    rlang_0.2.0        yaml_2.1.19       
+[19] withr_2.1.2        stringr_1.3.0      knitr_1.20        
+[22] caTools_1.17.1     gtools_3.5.0       tidyselect_0.2.4  
+[25] rprojroot_1.3-2    grid_3.4.4         glue_1.2.0        
+[28] R6_2.2.2           rmarkdown_1.9      gdata_2.18.0      
+[31] purrr_0.2.4        whisker_0.3-2      backports_1.1.2   
+[34] scales_1.0.0       htmltools_0.3.6    assertthat_0.2.0  
+[37] colorspace_1.3-2   labeling_0.3       KernSmooth_2.23-15
+[40] stringi_1.2.2      lazyeval_0.2.1     munsell_0.5.0     
+[43] R.oo_1.22.0       </code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
