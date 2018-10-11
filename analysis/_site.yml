@@ -11,10 +11,11 @@ navbar:
       href: license.html
   right:
     - icon: fa-github
-      href: https://github.com/jdblischak/workflowr
+      href: https://github.com/michellemiron
 output:
   workflowr::wflow_html:
     toc: true
     toc_float: true
-    theme: cosmo
-    highlight: textmate
+    theme: journal
+    highlight: pygments
+    code_folding: hide
