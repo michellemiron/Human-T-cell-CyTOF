@@ -1,0 +1,316 @@
+---
+title: "Heatmap"
+author: "Michelle Miron"
+date: "10/10/2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+###What is CyTOF data? 
+
+This is a guide for anyone who wants to analyze CyTOF data.The target audiences I have in mind are:
+
+* Those that have looked at [my results](http://www.jimmunol.org/content/early/2018/08/15/jimmunol.1800716) and want to see how I analyzed the data
+* Scientists with their own data that they would like to analyze
+* Data scientists/ bioinformaticians looking to understand how to analyze
+CyTOF data for a collaborator or project they are on
+
+The goals of this guide are to provide you with all the information you need to 
+analyze CyTOF data. I do this by going through in detail how I analyzed
+a CyTOF data set that I generated. For more information on type of data
+that CyTOF generates see [here](https://en.wikipedia.org/wiki/Mass_cytometry).
+
+The data comes from a mass cytometer (CyTOF). CyTOF allows you to look at 
+expression of many different proteins on single cells. The raw data is
+mean expression of individual proteins on each individual cell.
+CyTOF data is collected and saved in format of an .fcs file (Flow Cytometry
+Standard format). This is a file format specific to flow cytometry and can be 
+read by various flow cytometry softwares. Upon exporting the data from a flow cytometry 
+software, more analysis can be done which is what I have done here. 
+###Study Design
+
+This data was collected by staining lymphocyte populations 
+isolated from individiual human organ donor tissues with protein 
+specific antibodies conjugated to isotopes that can be detected by CyTOF. 
+
+In this study I am comparing lymphocyte populations, specifically T cells,
+that have been  isolated form different human tissue and organ sites. In this 
+study the lymphocyte populations  I am comparing have been isolated from the
+following sites: Blood, Bone marrow (BM), Spleen ( Spl), Lung (Lng), and
+Lung-draining lymph nodes (LLN). Each tissue site was collected from a single individual,
+and data from multiple individuals will be analyzed here.
+###Code book 
+####Fixed variables
+
+These are variables that do not change because you know them in advance 
+of the experiment, before collecting any data.
+
+1. Tissue,with four possible values (BM, Spl, LLN, and Lung)
+
+                                 Tissue       | Abbreviation 
+                                ------------- | ------------- 
+                                Bone Marrow   | BM       
+                                Spleen        | Spl
+                                Lung          | Lng
+                                Lymph node    | LN
+
+
+2. Individual, with three possible values(332,333, 335)
+
+                                Individual    | ID # 
+                                ------------- | -------
+                                1             | 332       
+                                2             | 333
+                                3             | 335
+  
+  
+3. T cell subset, with two valuees (MEM, or Naive)
+
+                                Subset          | Abbreviation
+                                --------------- | -------------
+                                Naive T cell    | Naive     
+                                Memory T cell   | TEM
+###Raw data 
+
+In this case the raw data, what gets collected from the machine, needs to
+be read using another software. I used a paid software called
+[FCS Express](http://www.denovosoftware.com/). Here I will 
+describe exactly what I did to export the  data from this software 
+which I call raw data.   
+
+Open the FCS Express software. On the top with all the menu options, click Export. This will open a window which you can need to choose and do the following:
+1) name the file you are exporting
+2) choose the parameters you want to export ( I exported all and edited the ones i wanted once it was loaded into R)
+3) Choose the number of cells you want to export ( I exported 1 million, knowing that was an over-estimate to get all the cells)
+4) Choose the "gate" you want to export. These are gates that you have defined in the program that identify the cell populations you are interested. Ie. for my cell types, protein expression of CCR7 and CD45RA identifies TEM and Naive T cells as CCR7-CD45RA- and CCR7+CD45RA+ respectively.
+                                
+###Steps to get the raw data
+
+1. Step 1 - take the raw file, run version FCS express (version 6), and do the following steps within the FCS express program.
+
+2. Step 2 - Concatenate the files using the FCS express data exporting option and make sure to label the file that you are exporting according to the files being merged.
+
+3. Step 3 - Open the concatenated file and gate on populations of interest.
+
+3. Step 4 - Export the data on any one given subset using the data export function from FCSexpress, containing expresion level on each individual cell. One file was exported for each cell subset.
+
+
+### Load data
+This is what the Raw data looks like:
+
+        
+```{r}
+          setwd("../data/")
+          Raw_BM_TEM <- read.csv("BM_TEM_D332_333_335_exp2.csv")
+          colnames(Raw_BM_TEM)
+```
+
+The problem is there is a separate file for each Tissue site (a variable) :
+
+```{r}
+
+  setwd("../data/")          
+  Raw_BM_TEM <- read.csv("BM_TEM_D332_333_335_exp2.csv")
+  Raw_Spl_TEM <- read.csv("SPL_TEM_D332_333_335_exp2.csv")
+  Raw_LN_TEM <- read.csv("LLN_TEM_D332_333_335_exp2.csv") 
+  Raw_Lng_TEM <- read.csv("Lung_TEM_D332_333_335_exp2.csv")
+  Raw_LN_Naive <- read.csv("LLN_Naive_D332_333_335_exp2.csv")
+  
+```
+
+
+In order to fix this, the next step is to merge the data from each file, which cnotained data on all the cells within on subset (Naive or Memory T cells from a particular tissue), into a database/file with all the data from each cell subset from different tissues together. I call the merged data "tidy" data below. 
+
+### Tidy data and Messy data
+Tidy [data](http://vita.had.co.nz/papers/tidy-data.html) is a uniform way to make data more organized and easier to do statsitics and analysis on. Here I will put the data into the tidy format. This consists of three steps:
+
+1.Only Keep relevant columns in data set:
+
+```{r}
+
+# A function to keep a subset of columns in the dataframe
+# and to fix an aritifact in the File.Identifier column
+tidyDataColumns <- function(RawData) {
+          
+          # Name columns to keep
+          keeps <- c("Time","CD57","CD28","CD45RA","CD103","Perforin",
+                                         "CD127","PD_1","ICOS","CD27","CCR5","Bcl6",
+                                         "Tcf1","CD14","CD56","CXCR5","CD69","X41BB","CD25",
+                                         "CCR7","CD3","Tbet","CD38","CD95","LAG3",
+                                         "CXCR4","HLADR", "TIGIT","GranzymeB",
+                                         "File.Identifier")
+        
+          # The subset of the raw data that contains columns defined above
+          KeyMarkersdf <- RawData[keeps]
+                    
+          # There is an artifact of the data
+          # The "File.Identifier" column was generated from the FCSexpress program
+          # This column is a number 1-12 that is a unique identifier 
+          # The unique identifier tells you what sample the cells are from
+          # For example, 1 = Bome marrrow from D332, 2= BM from D333
+          # The key to this identifier is in step 2 of tidy data below
+          # The artifact is that the he program outputs the File.Identifier number 
+          # as a real number ie. (1.04243) instead of an integer ie. (1)
+          # Therefore I rounded the File.Identifier column here:
+          File.ID.Rounded <- round(KeyMarkersdf$File.Identifier, digits=0)
+          # Take away the non-rounded file identifier
+          NoFileIDdf <- subset(KeyMarkersdf, select = -c(File.Identifier) )
+          # Add_Rounded_FileID to the dataframe
+          NoFileIDdf$File.ID <- File.ID.Rounded
+          # Rename the dataset
+          Tidydf <- NoFileIDdf
+}
+
+# Apply this function to all data sets
+          Tidy_BM_TEM <- tidyDataColumns(Raw_BM_TEM)
+          Tidy_LN_TEM <- tidyDataColumns(Raw_LN_TEM)
+          Tidy_Spl_TEM <- tidyDataColumns(Raw_Spl_TEM)
+          Tidy_Lung_TEM <- tidyDataColumns(Raw_Lng_TEM)
+          Tidy_LN_Naive <- tidyDataColumns(Raw_LN_Naive)
+```
+
+2. Combined the data sets together into one table:
+
+Remember that for this data set, the tissue varibale can still be disintuigshed by the file ID column. However the subset Variable cannot, So i will add this variable to each data set:
+
+Add a column that says subset name as a new variable:
+
+```{r}
+Tidy_BM_TEM["Subset"] <- "TEM" 
+Tidy_LN_Naive["Subset"] <- "Naive" 
+Tidy_LN_TEM["Subset"] <- "TEM" 
+Tidy_Lung_TEM["Subset"] <- "TEM" 
+Tidy_Spl_TEM["Subset"] <- "TEM" 
+
+```
+
+And now combine each data set by adding new rows:
+
+```{r}
+TidyMasterData <- do.call( "rbind", list(Tidy_BM_TEM, 
+                                         Tidy_LN_Naive,Tidy_LN_TEM, 
+                                         Tidy_Spl_TEM, Tidy_Lung_TEM))
+```
+
+
+3. Add variables that are imbedded in "File.Identifier" column
+
+The "File.Identifier" column has a key which reveals what variables they represent:
+
+```{r}
+#add tissue and donor column
+TidyMasterData["Tissue"] <- NA
+TidyMasterData["Donor"] <- NA
+library(dplyr)
+                              
+#Here is the key for what the File.ID column is
+setwd("../data/")
+File.Identifier_Key <- read.csv("File Identifier key.csv")
+File.Identifier_Key
+
+#Use the File.Identifier Key to label the table for the correct variables
+#associated with the observations
+for (i in 1:length(File.Identifier_Key[,1])) {
+          TidyMasterData$Tissue[TidyMasterData$File.ID==i] <- as.character(
+                    File.Identifier_Key$Tissue[i])
+          TidyMasterData$Donor[TidyMasterData$File.ID==i] <- File.Identifier_Key$Donor[i]      
+}
+
+library(dplyr)
+sample_n(TidyMasterData, 10)
+```
+
+Now to fix order of the columns so that the fixed variables ( File.ID, Subset, Tissue, and Donor) are first, and the oberserved variables (Protein names like CD57, T-bet , etc. are next). Here we will also remove the Time and File.ID column since those are no longer needed.
+                    
+```{r}
+#Remove columns that are not needed by their number in the dataframe
+TidyData <- TidyMasterData[,c(33,32,31,2:29)]
+sample_n(TidyData, 10)
+```
+
+Time to  make the last changes to make tidy data.
+Let's add a column to be a unique identifier for each cell number
+
+```{r}             
+TidyData["Cell"] <- 1:nrow(TidyData)
+TidyDatabyCell<- TidyData[,c(32,1:31)]
+messy <- TidyDatabyCell
+library(tidyr)
+```
+
+This will turn all the marker variables into rows instead of columns
+
+```{r}
+tidy <- messy %>%
+gather(Marker, Expression, CD57:GranzymeB)
+sample_n(tidy,10)
+sample_n(messy,10)
+                    
+```
+
+Now we can plot this easily using ggplot.
+This is if you want to plot values of individual cells:
+
+```{r}
+library(ggplot2)
+
+ggplot(data = tidy, aes(x = Cell, y = Marker)) +
+geom_tile(aes(fill = Expression)) 
+```
+
+
+### Mean of the data 
+#used this tutorial: http://stat545.com/block023_dplyr-do.html
+```{r}
+library(dplyr)
+library(gapminder)
+#this function allows multiple pipes to use with dplyr
+library(magrittr)
+
+meanDB <- tidy %>%
+           group_by(Donor,Tissue, Subset, Marker) %>%
+                    summarize(meanExpression = mean(Expression))
+                    
+#and Z score of this data
+ZscoreDB <- meanDB %>% 
+  group_by(Donor,Marker) %>% 
+  mutate(z_score = scale(meanExpression))  
+ 
+ZscoreDB <- as.data.frame(ZscoreDB)
+  meanZscoredf <- ZscoreDB
+  
+```
+#create unique name for each sample type
+```{r}
+MeanZscore_SampleIDdf <- meanZscoredf
+MeanZscore_SampleIDdf$Sample <- paste(MeanZscore_SampleIDdf$Donor,MeanZscore_SampleIDdf$Tissue,MeanZscore_SampleIDdf$Subset)
+sample_n(MeanZscore_SampleIDdf,10)
+
+```
+
+### plot Z score mean data
+
+Lets first get the data "untidy" so it's easier to use heatmap.2
+```{r}
+library(tidyr)
+Zscoredf <- MeanZscore_SampleIDdf[,c(4,6,7)] 
+ZscoreforHeatmap <- spread(Zscoredf, Marker, z_score)
+ZscoreforHeatmap_justValues <- ZscoreforHeatmap[,-c(1)]
+#name rows of the df for heatmap plotting so labels showup
+rownames(ZscoreforHeatmap_justValues) <- ZscoreforHeatmap[,1]
+
+#graph heatmap
+#going to try following this [heatmap #tutorial](http://varianceexplained.org/r/love-actually-network/)
+#color cheat sheet https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf
+library(gplots)
+my_palette <- colorRampPalette(c("steelblue3", "white", "sienna3"))(n = 100)
+heatmap.2(as.matrix(t(ZscoreforHeatmap_justValues)),trace="none",col=my_palette,cexRow=0.75, cexCol=0.5, breaks=c(seq(-1,1,0.02)))
+
+#lets remove some rows to only keep markers we want to plot!
+colnames(ZscoreforHeatmap_justValues)
+SelectZscores <-ZscoreforHeatmap_justValues[,-c(4,6,10,11,13,15,20,21,22,28)]
+my_palette <- colorRampPalette(c("steelblue3", "white", "sienna3"))(n = 100)
+heatmap.2(as.matrix(t(SelectZscores)),trace="none",col=my_palette,cexRow=0.75, cexCol=0.5, breaks=c(seq(-1,1,0.02)))
+```
+
