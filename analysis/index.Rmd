@@ -20,7 +20,7 @@ analyze CyTOF data. I do this by going through in detail how I analyzed
 a CyTOF data set that I generated. For more information on type of data
 that CyTOF generates see [here](https://en.wikipedia.org/wiki/Mass_cytometry).
 
-** Key findings: **
+**Key findings:**
 
 * A novel subset of memory T cells in human lymph nodes
 * A new computational method to analyze CyTOF data of human T cells

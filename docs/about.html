@@ -15,30 +15,14 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -160,6 +144,14 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 
@@ -190,7 +182,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jdblischak/workflowr">
+  <a href="https://github.com/michellemiron">
     <span class="fa fa-github"></span>
      
   </a>
@@ -209,6 +201,14 @@ div.section {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">About</h1>
@@ -216,27 +216,30 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-10-11</p>
+<p><strong>Last updated:</strong> 2018-10-12</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </details>
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> 97668c5 </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/michellemiron/Human-T-cell-CyTOF/tree/2d12272d7e6fc8cf14d3766d799ebd4e6f1df8f1" target="_blank">2d12272</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
+    Ignored:    .Rapp.history
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
     Ignored:    analysis/.Rhistory
+    Ignored:    docs/.DS_Store
 
-Untracked files:
-    Untracked:  analysis/Heatmap.Rmd
-    Untracked:  analysis/MDS.Rmd
+Unstaged changes:
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -272,7 +275,41 @@ Message
 Rmd
 </td>
 <td style="text-align:left;">
-b0ac7c9
+<a href="https://github.com/michellemiron/Human-T-cell-CyTOF/blob/2d12272d7e6fc8cf14d3766d799ebd4e6f1df8f1/analysis/about.Rmd" target="_blank">2d12272</a>
+</td>
+<td style="text-align:left;">
+michellemiron
+</td>
+<td style="text-align:left;">
+2018-10-12
+</td>
+<td style="text-align:left;">
+edits for descriptions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/michellemiron/Human-T-cell-CyTOF/6cc5c2b1ba6c575939bdd07e2e19a5de9a1a924f/docs/about.html" target="_blank">6cc5c2b</a>
+</td>
+<td style="text-align:left;">
+michellemiron
+</td>
+<td style="text-align:left;">
+2018-10-11
+</td>
+<td style="text-align:left;">
+docs added
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/michellemiron/Human-T-cell-CyTOF/blob/b0ac7c97d3b171983112bb6d3ae56219f27127c5/analysis/about.Rmd" target="_blank">b0ac7c9</a>
 </td>
 <td style="text-align:left;">
 michellemiron
@@ -289,7 +326,29 @@ Start workflowr project.
 </ul>
 </details>
 <hr />
-<p>Describe your project.</p>
+<div id="lymphoid-memory-t-cells-a-novel-subset-of-t-cells-in-human-lymph-nodes" class="section level2">
+<h2><em>Lymphoid Memory T cells</em> : A novel subset of T cells in human lymph nodes</h2>
+<p><strong>Key findings:</strong></p>
+<ul>
+<li>A novel subset of memory T cells in human lymph nodes</li>
+<li>A new computational method to analyze CyTOF data of human T cells</li>
+<li>Evidence for tissue-specific features of memory T cells in healthy individuals</li>
+<li>Increased proliferation and cytotoxic function of memory CD8+ T cells in human lymph nodes</li>
+</ul>
+<p><strong>Abstract</strong></p>
+<p>Translating studies on T cell function and modulation from mouse models to humans requires extrapolating in vivo results on mouse T cell responses in lymphoid organs (spleen and lymph nodes [LN]) to human peripheral blood T cells. However, our understanding of T cell responses in human lymphoid sites and their relation to peripheral blood remains sparse.</p>
+<p>Here we presen the CyTOF data analyzed in this study. In this study, we used a unique human tissue resource to study human T cells in different anatomical compartments within individual donors and identify a subset of memory CD8+ T cells in LN, which maintain a distinct differentiation and functional profile compared with memory CD8+ T cells in blood, spleen, bone marrow, and lungs. Whole-transcriptome and high-dimensional cytometry by time-of-flight profiling reveals that LN memory CD8+ T cells express signatures of quiescence and self-renewal compared with corresponding populations in blood, spleen, bone marrow, and lung. LN memory T cells exhibit a distinct transcriptional signature, including expression of stem cell-associated transcription factors TCF-1 and LEF-1, T follicular helper cell markers CXCR5 and CXCR4, and reduced expression of effector molecules. LN memory T cells display high homology to a subset of mouse CD8+ T cells identified in chronic infection models that respond to checkpoint blockade immunotherapy.</p>
+<p>Functionally, human LN memory T cells exhibit increased proliferation to TCR-mediated stimulation and maintain higher TCR clonal diversity compared with memory T cells from blood and other sites. These findings establish human LN as reservoirs for memory T cells with high capacities for expansion and diverse recognition and important targets for immunotherapies.</p>
+</div>
+<div id="authors" class="section level2">
+<h2>Authors</h2>
+<p>The full author list is as follows:</p>
+<p>Michelle Miron<sup>1,2,</sup>, Brahma Kumar<sup>1</sup>, Wenzhao Meng<sup>3</sup>, Tomer Granot<sup>1</sup>, Dustin Carpenter<sup>1</sup>, Takashi Senda<sup>1</sup>, Dora Chen<sup>3</sup>, Aaron Rosenfeld<sup>4</sup>, Bochao Zhang<sup>4</sup>, Harvery Lernern<sup>5</sup>, Amy Friedman <sup>5</sup>, Uri Hershberg<sup>4</sup>, Yufeng Shen<sup>6,7</sup>,Adeeb Rahman<sup>8</sup>,Eline Luning Park <sup>3</sup>, Donna L. Farber<sup>1,2,9,#</sup></p>
+<p><sup>1</sup>Columbia Center for Translational Immunology, Columbia University Medical Center, New York, NY 10032; <sup>2</sup> Department of Microbiology and Immunology, Columbia University, New York, NY 10032; <sup>3</sup> Department of Pathology and Laboratory Medicine, Perelman School of Medicine, University of Pennsylvania, Philadelphia, PA 19102; <sup>4</sup>School of Biomedical Engineering, Drexel University, Philadelphia, PA 19104. <sup>5</sup>LiveOnNY, New York, NY 10001. <sup>6</sup>Department of Systems Biology, Columbia University, New York, NY 10032. <sup>7</sup>Department of Biomedical Informatics, Columbia University, New York, NY 10032. <sup>8</sup> Icahn School of Medicine at Mount Sinai, New York, NY 10029. <sup>9</supColumbia Center for Translational Immunology, Columbia University Medical Center, New York, NY 10032.
+
+
+<sup>#</sup> Corresponding author.</p>
+</div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see

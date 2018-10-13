@@ -7,7 +7,7 @@ output:
 
 ## *Lymphoid Memory T cells* : A novel subset of T cells in human lymph nodes 
 
-** Key findings: **
+**Key findings:**
 
 * A novel subset of memory T cells in human lymph nodes
 * A new computational method to analyze CyTOF data of human T cells
@@ -15,7 +15,7 @@ output:
 * Increased proliferation and cytotoxic function of memory CD8+ T cells in human lymph nodes
 
 
-** Abstract ** 
+**Abstract** 
 
 Translating studies on T cell function and modulation from mouse models to humans requires extrapolating in vivo results on mouse T cell responses in lymphoid organs (spleen and lymph nodes [LN]) to human peripheral blood T cells. However, our understanding of T cell responses in human lymphoid sites and their relation to peripheral blood remains sparse.
 
@@ -27,7 +27,7 @@ Functionally, human LN memory T cells exhibit increased proliferation to TCR-med
 
 The full author list is as follows: 
 
-Michelle Miron<sup>1,2,</sup>, Brahma Kumar<sup>16</sup>, Wenzhao Meng<sup>3</sup>, Tomer Granot<sup>1</sup>, Dustin Carpenter<sup>1</sup>, Takashi Senda<sup>1</sup>, Dora Chen<sup>3</sup>, Aaron Rosenfeld<sup>4</sup>, Bochao Zhang<sup>4</sup>, Harvery Lernern<sup>5</sup>, Amy Friedman <sup>5</sup>, Uri Hershberg<sup>4</sup>, Yufeng Shen<sup>6,7</sup>,Adeeb Rahman<sup>8</sup>,Eline Luning Park <sup>3</sup>, Donna L. Farber<sup>1,2,9,#</sup>
+Michelle Miron<sup>1,2,</sup>, Brahma Kumar<sup>1</sup>, Wenzhao Meng<sup>3</sup>, Tomer Granot<sup>1</sup>, Dustin Carpenter<sup>1</sup>, Takashi Senda<sup>1</sup>, Dora Chen<sup>3</sup>, Aaron Rosenfeld<sup>4</sup>, Bochao Zhang<sup>4</sup>, Harvery Lernern<sup>5</sup>, Amy Friedman <sup>5</sup>, Uri Hershberg<sup>4</sup>, Yufeng Shen<sup>6,7</sup>,Adeeb Rahman<sup>8</sup>,Eline Luning Park <sup>3</sup>, Donna L. Farber<sup>1,2,9,#</sup>
 
 <sup>1</sup>Columbia Center for Translational Immunology, Columbia University Medical Center, New York, NY 10032; <sup>2</sup>    Department of Microbiology and Immunology, Columbia University, New York, NY 10032; <sup>3</sup>    Department of Pathology and Laboratory Medicine, Perelman School of Medicine, University of Pennsylvania, Philadelphia, PA 19102; <sup>4</sup>School of Biomedical Engineering, Drexel University, Philadelphia, PA 19104. <sup>5</sup>LiveOnNY, New York, NY 10001. <sup>6</sup>Department of Systems Biology, Columbia University, New York, NY 10032. <sup>7</sup>Department of Biomedical Informatics, Columbia University, New York, NY 10032. <sup>8</sup>    Icahn School of Medicine at Mount Sinai, New York, NY 10029. <sup>9</supColumbia Center for Translational Immunology, Columbia University Medical Center, New York, NY 10032.
 
