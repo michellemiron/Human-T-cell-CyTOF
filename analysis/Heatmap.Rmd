@@ -94,7 +94,7 @@ This is what the Raw data looks like:
         
 ```{r}
           Raw_BM_TEM <- read.csv("data/BM_TEM_D332_333_335_exp2.csv")
-          colnames(Raw_BM_TEM)
+          #colnames(Raw_BM_TEM)
 ```
 
 The problem is there is a separate file for each Tissue site (a variable) :
@@ -208,7 +208,7 @@ for (i in 1:length(File.Identifier_Key[,1])) {
           TidyMasterData$Donor[TidyMasterData$File.ID==i] <- File.Identifier_Key$Donor[i]      
 }
 
-sample_n(TidyMasterData, 10)
+#sample_n(TidyMasterData, 10)
 ```
 
 Now to fix order of the columns so that the fixed variables ( File.ID, Subset, Tissue, and Donor) are first, and the oberserved variables (Protein names like CD57, T-bet , etc. are next). Here we will also remove the Time and File.ID column since those are no longer needed.
@@ -216,7 +216,7 @@ Now to fix order of the columns so that the fixed variables ( File.ID, Subset, T
 ```{r}
 #Remove columns that are not needed by their number in the dataframe
 TidyData <- TidyMasterData[,c(33,32,31,2:29)]
-sample_n(TidyData, 10)
+#sample_n(TidyData, 10)
 ```
 
 Time to  make the last changes to make tidy data.
@@ -234,8 +234,8 @@ This will turn all the marker variables into rows instead of columns
 ```{r}
 tidy <- messy %>%
 gather(Marker, Expression, CD57:GranzymeB)
-sample_n(tidy,10)
-sample_n(messy,10)
+#sample_n(tidy,10)
+#sample_n(messy,10)
                     
 ```
 
@@ -273,7 +273,7 @@ ZscoreDB <- as.data.frame(ZscoreDB)
 ```{r}
 MeanZscore_SampleIDdf <- meanZscoredf
 MeanZscore_SampleIDdf$Sample <- paste(MeanZscore_SampleIDdf$Donor,MeanZscore_SampleIDdf$Tissue,MeanZscore_SampleIDdf$Subset)
-sample_n(MeanZscore_SampleIDdf,10)
+#sample_n(MeanZscore_SampleIDdf,10)
 
 ```
 
@@ -292,10 +292,7 @@ rownames(ZscoreforHeatmap_justValues) <- ZscoreforHeatmap[,1]
 #going to try following this [heatmap #tutorial](http://varianceexplained.org/r/love-actually-network/)
 #color cheat sheet https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf
 
-my_palette <- colorRampPalette(c("steelblue3", "white", "sienna3"))(n = 100)
-heatmap.2(as.matrix(t(ZscoreforHeatmap_justValues)),trace="none",col=my_palette,cexRow=0.75, cexCol=0.5, breaks=c(seq(-1,1,0.02)))
 
-#lets remove some rows to only keep markers we want to plot!
 colnames(ZscoreforHeatmap_justValues)
 SelectZscores <-ZscoreforHeatmap_justValues[,-c(4,6,10,11,13,15,20,21,22,28)]
 my_palette <- colorRampPalette(c("steelblue3", "white", "sienna3"))(n = 100)
