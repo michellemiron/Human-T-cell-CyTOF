@@ -20,8 +20,13 @@ analyze CyTOF data. I do this by going through in detail how I analyzed
 a CyTOF data set that I generated. For more information on type of data
 that CyTOF generates see [here](https://en.wikipedia.org/wiki/Mass_cytometry).
 
-**Key Findings:**
-* Lymph node memory T cells in humans exhibit unique array of proteins expressed -- both on the surface and intracellulary, compared to memory T cells frmo other tissue sites including blood, bone marrow, spleen and lungs.
+** Key findings: **
+
+* A novel subset of memory T cells in human lymph nodes
+* A new computational method to analyze CyTOF data of human T cells
+* Evidence for tissue-specific features of memory T cells in healthy individuals
+* Increased proliferation and cytotoxic function of memory CD8+ T cells in human lymph nodes
+
 
 ### Data overview
 
@@ -32,7 +37,8 @@ CyTOF data is collected and saved in format of an .fcs file (Flow Cytometry
 Standard format). This is a file format specific to flow cytometry and can be 
 read by various flow cytometry softwares. Upon exporting the data from a flow cytometry 
 software, more analysis can be done which is what I have done here. 
-###Study Design
+
+### Study Design
 
 This data was collected by staining lymphocyte populations 
 isolated from individiual human organ donor tissues with protein 

@@ -5,4 +5,34 @@ output:
     toc: false
 ---
 
-Describe your project.
+## *Lymphoid Memory T cells* : A novel subset of T cells in human lymph nodes 
+
+** Key findings: **
+
+* A novel subset of memory T cells in human lymph nodes
+* A new computational method to analyze CyTOF data of human T cells
+* Evidence for tissue-specific features of memory T cells in healthy individuals
+* Increased proliferation and cytotoxic function of memory CD8+ T cells in human lymph nodes
+
+
+** Abstract ** 
+
+Translating studies on T cell function and modulation from mouse models to humans requires extrapolating in vivo results on mouse T cell responses in lymphoid organs (spleen and lymph nodes [LN]) to human peripheral blood T cells. However, our understanding of T cell responses in human lymphoid sites and their relation to peripheral blood remains sparse.
+
+Here we presen the CyTOF data analyzed in this study. In this study, we used a unique human tissue resource to study human T cells in different anatomical compartments within individual donors and identify a subset of memory CD8+ T cells in LN, which maintain a distinct differentiation and functional profile compared with memory CD8+ T cells in blood, spleen, bone marrow, and lungs. Whole-transcriptome and high-dimensional cytometry by time-of-flight profiling reveals that LN memory CD8+ T cells express signatures of quiescence and self-renewal compared with corresponding populations in blood, spleen, bone marrow, and lung. LN memory T cells exhibit a distinct transcriptional signature, including expression of stem cell-associated transcription factors TCF-1 and LEF-1, T follicular helper cell markers CXCR5 and CXCR4, and reduced expression of effector molecules. LN memory T cells display high homology to a subset of mouse CD8+ T cells identified in chronic infection models that respond to checkpoint blockade immunotherapy. 
+
+Functionally, human LN memory T cells exhibit increased proliferation to TCR-mediated stimulation and maintain higher TCR clonal diversity compared with memory T cells from blood and other sites. These findings establish human LN as reservoirs for memory T cells with high capacities for expansion and diverse recognition and important targets for immunotherapies.
+
+## Authors 
+
+The full author list is as follows: 
+
+Michelle Miron<sup>1,2,</sup>, Brahma Kumar<sup>16</sup>, Wenzhao Meng<sup>3</sup>, Tomer Granot<sup>1</sup>, Dustin Carpenter<sup>1</sup>, Takashi Senda<sup>1</sup>, Dora Chen<sup>3</sup>, Aaron Rosenfeld<sup>4</sup>, Bochao Zhang<sup>4</sup>, Harvery Lernern<sup>5</sup>, Amy Friedman <sup>5</sup>, Uri Hershberg<sup>4</sup>, Yufeng Shen<sup>6,7</sup>,Adeeb Rahman<sup>8</sup>,Eline Luning Park <sup>3</sup>, Donna L. Farber<sup>1,2,9,#</sup>
+
+<sup>1</sup>Columbia Center for Translational Immunology, Columbia University Medical Center, New York, NY 10032; <sup>2</sup>    Department of Microbiology and Immunology, Columbia University, New York, NY 10032; <sup>3</sup>    Department of Pathology and Laboratory Medicine, Perelman School of Medicine, University of Pennsylvania, Philadelphia, PA 19102; <sup>4</sup>School of Biomedical Engineering, Drexel University, Philadelphia, PA 19104. <sup>5</sup>LiveOnNY, New York, NY 10001. <sup>6</sup>Department of Systems Biology, Columbia University, New York, NY 10032. <sup>7</sup>Department of Biomedical Informatics, Columbia University, New York, NY 10032. <sup>8</sup>    Icahn School of Medicine at Mount Sinai, New York, NY 10029. <sup>9</supColumbia Center for Translational Immunology, Columbia University Medical Center, New York, NY 10032.
+
+
+<sup>#</sup> Corresponding author. 
+
+
+
