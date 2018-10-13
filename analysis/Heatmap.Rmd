@@ -94,7 +94,7 @@ This is what the Raw data looks like:
         
 ```{r}
           Raw_BM_TEM <- read.csv("data/BM_TEM_D332_333_335_exp2.csv")
-          #colnames(Raw_BM_TEM)
+           #colnames(Raw_BM_TEM)
 ```
 
 The problem is there is a separate file for each Tissue site (a variable) :
